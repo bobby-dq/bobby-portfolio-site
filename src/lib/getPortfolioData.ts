@@ -47,10 +47,15 @@ export interface ExperienceData {
   [key: string]: any;
 }
 
-export interface SkillData {
+export interface SkillItem {
   name: string;
+  order: number;
+}
+
+export interface SkillData {
   category: string;
   order: number;
+  items: SkillItem[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
@@ -61,6 +66,11 @@ export interface SocialLink {
   icon: prismic.ImageField;
 }
 
+export interface SettingField {
+  name: string;
+  value: string;
+}
+
 export interface SettingsData {
   site_title: string;
   site_description: string;
@@ -68,6 +78,7 @@ export interface SettingsData {
   resume_link: prismic.LinkField;
   social_links: SocialLink[];
   logo: prismic.ImageField;
+  other_fields: SettingField[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }

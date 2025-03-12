@@ -235,66 +235,30 @@ export default async function Home() {
           </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
-            {/* Languages & Frameworks */}
-            <AnimatedSection className="space-y-6" delay={100}>
-              <h3 className="text-xl text-white mb-8 font-pirata">
-                Languages & Frameworks
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                {skills
-                  ?.filter(
-                    (skill) => skill.data.category === "Languages & Frameworks"
-                  )
-                  .map((skill) => (
-                    <span
-                      key={skill.id}
-                      className="px-4 py-2 border border-gray-800 text-gray-300 hover:text-white hover:border-gray-700 transition-colors"
-                    >
-                      {skill.data.name}
-                    </span>
-                  ))}
-              </div>
-            </AnimatedSection>
-
-            {/* Infrastructure & Tools */}
-            <AnimatedSection className="space-y-6" delay={200}>
-              <h3 className="text-xl text-white mb-8 font-pirata">
-                Infrastructure & Tools
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                {skills
-                  ?.filter(
-                    (skill) => skill.data.category === "Infrastructure & Tools"
-                  )
-                  .map((skill) => (
-                    <span
-                      key={skill.id}
-                      className="px-4 py-2 border border-gray-800 text-gray-300 hover:text-white hover:border-gray-700 transition-colors"
-                    >
-                      {skill.data.name}
-                    </span>
-                  ))}
-              </div>
-            </AnimatedSection>
-
-            {/* Methodologies */}
-            <AnimatedSection className="space-y-6 md:col-span-2" delay={300}>
-              <h3 className="text-xl text-white mb-8 font-pirata">
-                Methodologies
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                {skills
-                  ?.filter((skill) => skill.data.category === "Methodologies")
-                  .map((skill) => (
-                    <span
-                      key={skill.id}
-                      className="px-4 py-2 border border-gray-800 text-gray-300 hover:text-white hover:border-gray-700 transition-colors"
-                    >
-                      {skill.data.name}
-                    </span>
-                  ))}
-              </div>
-            </AnimatedSection>
+            {/* Map through skill categories */}
+            {skills?.map((skillCategory, index) => (
+              <AnimatedSection
+                key={skillCategory.id}
+                className="space-y-6"
+                delay={100 * (index + 1)}
+              >
+                <h3 className="text-xl text-white mb-8 font-pirata">
+                  {skillCategory.data.category}
+                </h3>
+                <div className="flex flex-wrap gap-3">
+                  {skillCategory.data.items
+                    ?.sort((a, b) => a.order - b.order) // Sort items by order
+                    .map((skill, i) => (
+                      <span
+                        key={i}
+                        className="px-4 py-2 border border-gray-800 text-gray-300 hover:text-white hover:border-gray-700 transition-colors"
+                      >
+                        {skill.name}
+                      </span>
+                    ))}
+                </div>
+              </AnimatedSection>
+            ))}
           </div>
         </div>
       </section>
