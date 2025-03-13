@@ -94,7 +94,7 @@ body::after {
 
 /* Hero Section */
 .hero-section {
-  @apply py-24 md:py-40 relative overflow-hidden;
+  @apply py-24 md:py-40 relative overflow-hidden min-h-screen flex items-center border-b border-primary;
 }
 
 .hero-section::before {
@@ -166,7 +166,7 @@ body::after {
   left: 0;
   width: 0;
   height: 1px;
-  background-color: #f3191b; /* Changed to primary color */
+  @apply bg-primary;
   transition: width 0.3s ease;
 }
 

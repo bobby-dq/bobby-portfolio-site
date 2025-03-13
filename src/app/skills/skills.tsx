@@ -7,7 +7,7 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
     <section id="skills" className="portfolio-section">
       <div className="container mx-auto px-4">
         <AnimatedSection>
-          <h2 className="font-primary text-5xl md:text-6xl text-primary mb-16">
+          <h2 className="font-primary text-5xl md:text-6xl text-primary mb-16 lowercase">
             Skills
           </h2>
         </AnimatedSection>

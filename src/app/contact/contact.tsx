@@ -9,8 +9,8 @@ const Contact: React.FC<ContactProps> = ({ settings }) => {
     <section id="contact" className="portfolio-section border-b-0">
       <div className="container mx-auto px-4">
         <AnimatedSection animation="fadeUp">
-          <h2 className="font-primary text-5xl md:text-6xl text-primary mb-16">
-            Contact
+          <h2 className="font-primary text-5xl md:text-6xl text-primary mb-16 lowercase">
+            Connect
           </h2>
         </AnimatedSection>
 

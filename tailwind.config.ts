@@ -2,6 +2,49 @@ import type { Config } from "tailwindcss";
 import typography from "@tailwindcss/typography";
 import aspectRatio from "@tailwindcss/aspect-ratio";
 
+const palettes = {
+  crimson: {
+    DEFAULT: "#F3191B",
+    500: "#F3191B",
+    600: "#D61618",
+    400: "#F54346",
+    300: "#F76E70",
+    200: "#FAA7A8",
+    100: "#FDD3D4",
+  },
+  ube: {
+    DEFAULT: "#8A56AC",
+    500: "#8A56AC",
+    600: "#70458A",
+    400: "#A078C0",
+    300: "#B699D1",
+    200: "#CCBAE2",
+    100: "#E3DAF0",
+  },
+  matcha: {
+    DEFAULT: "#5D7052",
+    500: "#5D7052",
+    600: "#4A5A41",
+    400: "#7A8C70",
+    300: "#97A78D",
+    200: "#B5C1AD",
+    100: "#D2DACE",
+  },
+};
+
+const getPalette = (palette?: "crimson" | "ube" | "matcha") => {
+  switch (palette) {
+    case "crimson":
+      return palettes.crimson;
+    case "ube":
+      return palettes.ube;
+    case "matcha":
+      return palettes.matcha;
+    default:
+      return palettes.crimson;
+  }
+};
+
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -15,15 +58,7 @@ const config: Config = {
         inter: ["var(--font-inter)"],
       },
       colors: {
-        primary: {
-          DEFAULT: "#F3191B",
-          500: "#F3191B",
-          600: "#D61618", // Darker
-          400: "#F54346", // Lighter
-          300: "#F76E70", // Even lighter
-          200: "#FAA7A8", // Much lighter
-          100: "#FDD3D4", // Very light
-        },
+        primary: getPalette("matcha"),
         ink: {
           DEFAULT: "#000000",
           900: "#000000",
@@ -37,13 +72,13 @@ const config: Config = {
           100: "#CCCCCC",
         },
         base: {
-          DEFAULT: "#FFFDF4", 
+          DEFAULT: "#FFFDF4",
           500: "#FFFDF4",
           400: "#F7F5EC",
           300: "#F0EDE4",
           200: "#E8E5DC",
-          600: "#FFFFFA", 
-          700: "#FCFAF0", 
+          600: "#FFFFFA",
+          700: "#FCFAF0",
         },
       },
       typography: (theme: (path: string) => string) => ({

@@ -8,7 +8,7 @@ const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
     <section id="about" className="portfolio-section">
       <div className="container mx-auto px-4">
         <AnimatedSection animation="fadeUp">
-          <h2 className="font-primary text-5xl md:text-6xl text-primary mb-16">
+          <h2 className="font-primary text-5xl md:text-6xl text-primary mb-16 lowercase">
             Experience
           </h2>
         </AnimatedSection>
@@ -20,8 +20,6 @@ const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
             delay={200}
           >
             <div className="mt-8 space-y-6">
-              <h3 className="text-xl text-ink">Experience</h3>
-
               <AnimatedSection animation="stagger" className="timeline">
                 {experiences?.map((experience) => (
                   <div key={experience.id} className="timeline-item mb-10">
@@ -41,7 +39,7 @@ const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
                     </p> */}
                     {experience.data.descriptions.map(
                       (d: JobDescriptionItem, i: number) => (
-                        <li className="text-ink-300" key={i}>
+                        <li className="text-ink-500" key={i}>
                           {d.item}
                         </li>
                       )
