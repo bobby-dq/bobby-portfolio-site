@@ -2,19 +2,11 @@
 
 import { useRef, useState, useEffect } from "react";
 import { PrismicRichText, PrismicText } from "@prismicio/react";
-import { isFilled, PrismicDocument } from "@prismicio/client";
+import { isFilled } from "@prismicio/client";
 import Image from "next/image";
 import gsap from "gsap";
-import {
-  ProjectData,
-  ProjectImage,
-  TechnologyItem,
-} from "@/lib/getPortfolioData";
-
-interface ProjectItemProps {
-  project: PrismicDocument<ProjectData, string, string>;
-  index: number;
-}
+import { ProjectItemProps } from "./project-item.props";
+import { ProjectImage, TechnologyItem } from "@/services/prismic/prismic.dto";
 
 export default function ProjectItem({ project, index }: ProjectItemProps) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -27,16 +19,18 @@ export default function ProjectItem({ project, index }: ProjectItemProps) {
     if (!content) return;
 
     if (isExpanded) {
-      // Animate opening
+      // First ensure content is visible
+      gsap.set(content, { opacity: 1 });
+
+      // Then animate height
       gsap.set(content, { height: "auto" });
       gsap.from(content, {
         height: 0,
-        opacity: 0,
         duration: 0.5,
         ease: "power2.out",
       });
 
-      // Animate content items
+      // Animate content items with a slight delay
       const contentItems = content.querySelectorAll(".content-item");
       gsap.fromTo(
         contentItems,
@@ -47,16 +41,31 @@ export default function ProjectItem({ project, index }: ProjectItemProps) {
           duration: 0.6,
           stagger: 0.1,
           ease: "power2.out",
-          delay: 0.2,
+          delay: 0.3, // Slightly longer delay
+          onComplete: () => {
+            // Force render of images
+            window.dispatchEvent(new Event("resize"));
+          },
         }
       );
     } else {
       // Animate closing
+      const contentItems = content.querySelectorAll(".content-item");
+
+      // First fade out content items
+      gsap.to(contentItems, {
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.in",
+      });
+
+      // Then collapse the container
       gsap.to(content, {
         height: 0,
         opacity: 0,
         duration: 0.4,
         ease: "power2.in",
+        delay: 0.1,
       });
     }
   }, [isExpanded]);
@@ -87,10 +96,10 @@ export default function ProjectItem({ project, index }: ProjectItemProps) {
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <div className="flex items-center gap-4 mb-4">
-          <span className="text-4xl font-pirata text-gray-500">
+          <span className="text-4xl font-primary text-primary-500">
             {String(index + 1).padStart(2, "0")}
           </span>
-          <h3 className="text-2xl md:text-3xl text-white group-hover:text-gray-300 transition-colors">
+          <h3 className="text-2xl md:text-3xl text-ink group-hover:text-ink-300 transition-colors">
             <PrismicText field={project.data.title} />
           </h3>
           <div
@@ -103,34 +112,17 @@ export default function ProjectItem({ project, index }: ProjectItemProps) {
           </div>
         </div>
 
-        <p className="text-gray-400 mb-4 ml-12">
+        <p className="text-ink-400 mb-4 ml-12">
           {project.data.short_description}
         </p>
       </div>
 
-      <div ref={contentRef} className="overflow-hidden h-0 ml-12">
-        <div className="space-y-6 border-l-2 border-gray-800 pl-6">
-          {project.data.images && project.data.images.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 content-item">
-              {project.data.images.map((imageObj: ProjectImage, i: number) => (
-                <div key={i} className="aspect-video bg-gray-800 relative">
-                  {isFilled.image(imageObj.image) ? (
-                    <Image
-                      src={imageObj.image.url}
-                      alt={imageObj.image.alt || `Project image ${i + 1}`}
-                      fill
-                      className="object-cover"
-                    />
-                  ) : (
-                    <div className="absolute inset-0 flex items-center justify-center text-gray-600">
-                      Project Image {i + 1}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
-
+      <div
+        ref={contentRef}
+        className="overflow-hidden h-0 ml-12"
+        style={{ opacity: isExpanded ? 1 : 0 }}
+      >
+        <div className="space-y-6 border-l-2 border-ink-800 pl-6">
           <div className="prose prose-invert max-w-none content-item">
             <PrismicRichText field={project.data.full_description} />
           </div>
@@ -142,7 +134,7 @@ export default function ProjectItem({ project, index }: ProjectItemProps) {
                   (tech: TechnologyItem, i: number) => (
                     <span
                       key={i}
-                      className="px-3 py-1 border border-gray-800 text-sm text-gray-400"
+                      className="px-3 py-1 border border-ink-800 text-sm text-ink-400"
                     >
                       {tech.item}
                     </span>
@@ -150,6 +142,34 @@ export default function ProjectItem({ project, index }: ProjectItemProps) {
                 )}
               </div>
             )}
+
+          {/* Moved images to appear after technologies */}
+          {project.data.images && project.data.images.length > 0 && (
+            <div className="flex flex-col gap-4 content-item opacity-100 w-full">
+              {project.data.images.map((imageObj: ProjectImage, i: number) => (
+                <div
+                  key={i}
+                  className="bg-ink-800 relative w-full mb-4"
+                  style={{ width: "100%" }}
+                >
+                  {isFilled.image(imageObj.image) ? (
+                    <Image
+                      src={imageObj.image.url}
+                      alt={imageObj.image.alt || `Project image ${i + 1}`}
+                      width={1200}
+                      height={675}
+                      priority={i === 0}
+                      className="w-full h-auto object-contain"
+                    />
+                  ) : (
+                    <div className="flex items-center justify-center text-ink-600 h-48">
+                      Project Image {i + 1}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
 
           <div className="flex gap-4 content-item">
             {isFilled.link(project.data.project_url) && (

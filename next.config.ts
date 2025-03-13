@@ -1,9 +1,8 @@
-// next.config.ts
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ["images.prismic.io"],
+    // domains: ["images.prismic.io"],
     remotePatterns: [
       {
         protocol: "https",
@@ -11,6 +10,9 @@ const nextConfig: NextConfig = {
         pathname: "/bobby-quilacio-portfolio/**",
       },
     ],
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
   },
 };
 

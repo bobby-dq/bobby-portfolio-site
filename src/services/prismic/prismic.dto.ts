@@ -1,4 +1,4 @@
-import { createClient } from "../../prismic";
+import { createClient } from "../../../prismic";
 import * as prismic from "@prismicio/client";
 
 export interface HomepageData {
@@ -62,8 +62,8 @@ export interface SkillData {
 
 export interface SocialLink {
   platform: string;
-  url: prismic.LinkField;
-  icon: prismic.ImageField;
+  url?: prismic.LinkField;
+  icon?: prismic.ImageField;
 }
 
 export interface SettingField {

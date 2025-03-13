@@ -50,8 +50,8 @@ export default function SkillBar({ name, level, percentage }: SkillBarProps) {
   return (
     <div className="mb-6" ref={barRef}>
       <div className="flex justify-between mb-2">
-        <span className="text-white">{name}</span>
-        <span className="text-gray-500">{level}</span>
+        <span className="text-ink">{name}</span>
+        <span className="text-ink-500">{level}</span>
       </div>
       <div className="skill-bar">
         <div
