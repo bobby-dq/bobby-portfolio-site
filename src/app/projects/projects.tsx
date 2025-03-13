@@ -9,7 +9,7 @@ const Projects: React.FC<ProjectsProps> = ({ projects }) => {
       <div className="container mx-auto px-4">
         <AnimatedSection animation="fadeUp">
           <h2 className="font-primary text-5xl md:text-6xl text-primary mb-16">
-            Work
+            Technical Projects
           </h2>
         </AnimatedSection>
 

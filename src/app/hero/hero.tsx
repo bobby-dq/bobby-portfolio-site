@@ -11,12 +11,14 @@ const Hero: React.FC<HeroProps> = ({ homepage, settings }) => {
     <section className="hero-section">
       <div className="container mx-auto px-4">
         <AnimatedSection className="hero-content" animation="fadeUp">
-          <h1 className="font-primary text-6xl md:text-8xl text-primary mb-6">
+          <h1 className="font-primary text-6xl md:text-9xl text-primary mb-6">
             {isFilled.richText(homepage?.data?.title) && (
-              <span className="block">
+              <span className="block uppercase">
                 <PrismicText field={homepage.data.title} />
               </span>
             )}
+          </h1>
+          <h1 className="font-primary text-6xl md:text-4xl text-primary mb-6">
             {homepage?.data?.subtitle && (
               <span className="block">{homepage.data.subtitle}</span>
             )}

@@ -7,7 +7,7 @@ const Education: React.FC<EducationProps> = ({ education }) => {
     <section id="education" className="portfolio-section">
       <div className="container mx-auto px-4">
         <AnimatedSection>
-          <h2 className="font-primary text-5xl md:text-6xl text-primary mb-16">
+          <h2 className="font-primary text-5xl md:text-6xl text-ink mb-16">
             Education
           </h2>
         </AnimatedSection>
@@ -25,7 +25,7 @@ const Education: React.FC<EducationProps> = ({ education }) => {
                 <h4 className="text-ink-400 mb-4">{edu.data.institution}</h4>
                 <p className="text-ink-300 mb-2">{edu.data.gpa}</p>
 
-                {edu.data.key_courses && edu.data.key_courses.length > 0 && (
+                {/* {edu.data.key_courses && edu.data.key_courses.length > 0 && (
                   <div className="mt-4 pt-4 border-t border-ink-800">
                     <h5 className="text-ink mb-3">Key Courses</h5>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -46,7 +46,7 @@ const Education: React.FC<EducationProps> = ({ education }) => {
                       ))}
                     </div>
                   </div>
-                )}
+                )} */}
               </div>
             </AnimatedSection>
           ))}

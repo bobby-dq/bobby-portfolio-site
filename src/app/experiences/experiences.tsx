@@ -24,7 +24,7 @@ const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
 
               <AnimatedSection animation="stagger" className="timeline">
                 {experiences?.map((experience) => (
-                  <div key={experience.id} className="timeline-item">
+                  <div key={experience.id} className="timeline-item mb-10">
                     <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
                       <h4 className="text-lg text-ink">
                         {experience.data.position}
@@ -36,14 +36,14 @@ const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
                     <h5 className="text-ink-400 mb-2">
                       {experience.data.company}
                     </h5>
-                    <p className="text-ink-300">
+                    {/* <p className="text-ink">
                       {experience.data.short_description}
-                    </p>
+                    </p> */}
                     {experience.data.descriptions.map(
                       (d: JobDescriptionItem, i: number) => (
-                        <p className="text-ink-300" key={i}>
+                        <li className="text-ink-300" key={i}>
                           {d.item}
-                        </p>
+                        </li>
                       )
                     )}
                   </div>

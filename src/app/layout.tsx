@@ -1,6 +1,6 @@
 import { getPortfolioData } from "@/services/prismic/prismic.service";
 import "./globals.css";
-import { Pirata_One, Cambay } from "next/font/google";
+import { Pirata_One, Forum } from "next/font/google";
 import Navbar from "@/app/navigation/navbar";
 import Footer from "@/app/navigation/footer";
 import Sidebar from "@/app/navigation/sidebar";
@@ -11,9 +11,9 @@ const primaryFont = Pirata_One({
   variable: "--font-primary",
 });
 
-const secondaryFont = Cambay({
+const secondaryFont = Forum({
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["400"],
   variable: "--font-secondary",
 });
 

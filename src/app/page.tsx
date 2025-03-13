@@ -27,17 +27,17 @@ export default async function Home() {
       {settings && homepage && (
         <Hero homepage={homepage} settings={settings}></Hero>
       )}
-      {settings && education && (
-        <Education education={education} settings={settings}></Education>
-      )}
-      {settings && projects && (
-        <Projects projects={projects} settings={settings}></Projects>
-      )}
       {settings && experiences && (
         <Experiences
           experiences={experiences}
           settings={settings}
         ></Experiences>
+      )}
+      {settings && education && (
+        <Education education={education} settings={settings}></Education>
+      )}
+      {settings && projects && (
+        <Projects projects={projects} settings={settings}></Projects>
       )}
       {settings && skills && (
         <Skills skills={skills} settings={settings}></Skills>
