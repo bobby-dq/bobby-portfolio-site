@@ -5,7 +5,7 @@ import ProjectItem from "./project-item";
 
 const Projects: React.FC<ProjectsProps> = ({ projects }) => {
   return (
-    <section id="work" className="portfolio-section">
+    <section id="projects" className="portfolio-section">
       <div className="container mx-auto px-4">
         <AnimatedSection animation="fadeUp">
           <h2 className="font-primary text-5xl md:text-6xl text-primary mb-16 lowercase">

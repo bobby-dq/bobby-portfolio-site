@@ -1,13 +1,44 @@
 import Link from "next/link";
 import { NavbarProps } from "./navbar.props";
 import Image from "next/image";
+import { Menu } from "lucide-react";
+import gsap from "gsap";
 
-const Navbar: React.FC<NavbarProps> = ({ settings }) => {
+const Navbar: React.FC<NavbarProps> = ({
+  settings,
+  isScrolled,
+  navItems,
+  setCurrentSection,
+  setIsExpandedSidebar,
+}) => {
+  const handleSectionClick = (sectionId: string) => {
+    setCurrentSection(sectionId);
+    const target = document.getElementById(sectionId);
+
+    if (target) {
+      gsap.to(window, {
+        duration: 0.33,
+        scrollTo: {
+          y: target,
+        },
+        ease: "power3.inOut",
+      });
+    }
+  };
+
+  const handleMobileMenuClick = () => {
+    setIsExpandedSidebar(true);
+  };
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm bg-base bg-opacity-80">
+    <header
+      className={`fixed top-0 left-0 right-0 z-30 backdrop-blur-sm ${
+        isScrolled ? "bg-base bg-opacity-5" : "bg-transparent"
+      } transition-all duration-300`}
+    >
       <div className="container mx-auto px-4 py-4">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <Link href="/" className="mb-4 md:mb-0">
+        <div className="flex flex-row justify-between items-center">
+          <Link href="/" className="mb-4 md:mb-0 ml-12">
             {settings?.data?.logo?.url ? (
               <div className="w-auto h-8 md:h-10">
                 <Image
@@ -23,39 +54,38 @@ const Navbar: React.FC<NavbarProps> = ({ settings }) => {
               <span className="text-ink text-2xl">Bobby Q.</span>
             )}
           </Link>
-          <nav>
-            <ul className="flex space-x-8 uppercase tracking-wider text-sm">
-              <li>
-                <Link href="#work" className="hover:text-ink transition-colors">
-                  Work
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#about"
-                  className="hover:text-ink transition-colors"
-                >
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#skills"
-                  className="hover:text-ink transition-colors"
-                >
-                  Skills
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#contact"
-                  className="hover:text-ink transition-colors"
-                >
-                  Contact
-                </Link>
-              </li>
+
+          <nav
+            className={`${
+              !isScrolled ? "hidden md:block" : "hidden"
+            } transition-all duration-300`}
+          >
+            <ul className="flex space-x-4 uppercase tracking-wider text-sm">
+              {navItems.map((item) => (
+                <li key={item.id}>
+                  <button
+                    onClick={() => handleSectionClick(item.id)}
+                    className="hover:text-ink text-primary transition-colors text-lg lowercase"
+                  >
+                    {item.label}
+                  </button>
+                </li>
+              ))}
             </ul>
           </nav>
+
+          <div
+            className={`${
+              isScrolled ? "block" : "block md:hidden"
+            } transition-all duration-300`}
+          >
+            <button
+              onClick={handleMobileMenuClick}
+              className="text-ink p-2 hover:text-opacity-80 transition-colors"
+            >
+              <Menu size={24} />
+            </button>
+          </div>
         </div>
       </div>
     </header>

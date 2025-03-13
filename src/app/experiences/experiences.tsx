@@ -5,7 +5,7 @@ import { JobDescriptionItem } from "@/services/prismic/prismic.dto";
 
 const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
   return (
-    <section id="about" className="portfolio-section">
+    <section id="work" className="portfolio-section">
       <div className="container mx-auto px-4">
         <AnimatedSection animation="fadeUp">
           <h2 className="font-primary text-5xl md:text-6xl text-primary mb-16 lowercase">

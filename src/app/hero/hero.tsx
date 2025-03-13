@@ -6,7 +6,7 @@ import { PrismicText, PrismicRichText } from "@prismicio/react";
 
 const Hero: React.FC<HeroProps> = ({ homepage }) => {
   return (
-    <section className="hero-section">
+    <section className="hero-section portfolio-section" id="home">
       <div className="container mx-auto px-4 flex items-center justify-center h-full">
         <AnimatedSection
           className="hero-content text-center pt-0 md:pt-0 -mt-16 md:-mt-20"

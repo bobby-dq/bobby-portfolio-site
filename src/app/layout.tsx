@@ -1,9 +1,9 @@
 import { getPortfolioData } from "@/services/prismic/prismic.service";
 import "./globals.css";
 import { Pirata_One, Forum } from "next/font/google";
-import Navbar from "@/app/navigation/navbar";
-import Footer from "@/app/navigation/footer";
-import Sidebar from "@/app/navigation/sidebar";
+import { SettingsProvider } from "@/providers/settings.provider";
+import ClientLayout from "./layouts/client-layout";
+import { GSAPProvider } from "@/providers/gsap.providers";
 
 const primaryFont = Pirata_One({
   subsets: ["latin"],
@@ -29,19 +29,19 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const { settings } = await getPortfolioData(["settings"]);
-
   return (
     <html
       lang="en"
       className={`${primaryFont.variable} ${secondaryFont.variable} scroll-smooth`}
     >
       <body className="bg-base text-ink-300 font-secondary">
-        <div className="min-h-screen flex flex-col">
-          {settings && <Navbar settings={settings}></Navbar>}
-          {settings && <Sidebar settings={settings}></Sidebar>}
-          <main className="flex-grow pt-24">{children}</main>
-          {settings && <Footer settings={settings}></Footer>}
-        </div>
+        {settings && (
+          <SettingsProvider settings={settings}>
+            <GSAPProvider>
+              <ClientLayout>{children}</ClientLayout>
+            </GSAPProvider>
+          </SettingsProvider>
+        )}
       </body>
     </html>
   );

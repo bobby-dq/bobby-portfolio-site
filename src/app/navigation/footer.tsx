@@ -18,7 +18,7 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
       : "#";
 
   return (
-    <footer className="border-t border-ink-900 mt-24 py-8">
+    <footer className="mt-12 ml-12 py-8">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="text-sm text-ink-500 mb-4 md:mb-0">

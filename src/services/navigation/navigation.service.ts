@@ -21,7 +21,7 @@ export const getNavigationItems = (): NavItem[] => {
       number: "03",
     },
     {
-      id: "project",
+      id: "projects",
       label: "Projects",
       subtext: "A quick show-and-tell",
       number: "04",

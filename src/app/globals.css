@@ -94,7 +94,7 @@ body::after {
 
 /* Hero Section */
 .hero-section {
-  @apply py-24 md:py-40 relative overflow-hidden min-h-screen flex items-center border-b border-primary;
+  @apply py-24 md:py-40 relative overflow-hidden min-h-screen flex items-center;
 }
 
 .hero-section::before {

@@ -52,6 +52,18 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    screens: {
+      sm: "640px",
+      md: "640px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1536px",
+
+      // Your custom breakpoints
+      tablet: "992px",
+      desktop: "1200px",
+      wide: "1440px",
+    },
     extend: {
       fontFamily: {
         pirata: ["var(--font-primary)"],
