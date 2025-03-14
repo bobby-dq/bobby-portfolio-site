@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { NavItem } from "@/services/navigation/nav-item.dto";
 import Navbar from "./navbar";
 import ExpandedSidebar from "./sidebar-expanded";
 import Sidebar from "./sidebar";
@@ -17,63 +16,105 @@ const Navigation: React.FC<NavigationProps> = ({
   navItems,
   settings,
 }) => {
+  // Use useRef instead of state to persist references between renders
   const expandedSidebarRef = useRef<HTMLDivElement>(null);
   const sidebarContentRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
 
+  // Sidebar animation
   useEffect(() => {
+    // Only run animation if all refs are available (client-side)
     if (
       expandedSidebarRef.current &&
       sidebarContentRef.current &&
       overlayRef.current
     ) {
       if (isExpandedSidebar) {
-        // Make the sidebar visible first
+        // Make the sidebar visible first using display block
         gsap.set(expandedSidebarRef.current, {
-          visibility: "visible",
+          display: "block",
           autoAlpha: 1,
         });
 
-        // Then animate the elements
+        // Create the timeline
         const tl = gsap.timeline();
 
-        tl.fromTo(
-          overlayRef.current,
-          { opacity: 0 },
-          { opacity: 1, duration: 0.3 }
-        ).fromTo(
-          sidebarContentRef.current,
-          { x: "-100%" },
-          { x: "0%", duration: 0.5, ease: "power3.out" },
-          "-=0.2"
+        // Animate overlay
+        tl.to(overlayRef.current, { opacity: 1, duration: 0.3 });
+
+        // Animate fan panels
+        const fanPanels = expandedSidebarRef.current.querySelectorAll(
+          '[class*="fan-panel"]'
         );
 
-        // Safe check that sidebar content has children before animating them
-        if (sidebarContentRef.current.children.length > 0) {
-          tl.fromTo(
-            sidebarContentRef.current.children,
-            { opacity: 0, x: -20 },
-            { opacity: 1, x: 0, duration: 0.4, stagger: 0.1 },
-            "-=0.3"
-          );
+        if (fanPanels && fanPanels.length > 0) {
+          // Reset all panels to width 0
+          gsap.set(fanPanels, { width: 0 });
+
+          // Animate each panel sequentially
+          fanPanels.forEach((panel, index) => {
+            tl.to(
+              panel,
+              { width: "100%", duration: 0.4, ease: "power3.out" },
+              index * 0.05
+            );
+          });
         }
+
+        // Ensure content is visible
+        gsap.set(sidebarContentRef.current, {
+          opacity: 0,
+        });
+
+        // Animate in the content
+        tl.to(
+          sidebarContentRef.current,
+          {
+            opacity: 1,
+            duration: 0.3,
+          },
+          "-=0.1"
+        );
       } else {
         // Hide sidebar with animation
         const tl = gsap.timeline({
           onComplete: () => {
             if (expandedSidebarRef.current) {
-              gsap.set(expandedSidebarRef.current, { visibility: "hidden" });
+              // When animation is complete, set display to none
+              gsap.set(expandedSidebarRef.current, {
+                display: "none",
+              });
             }
           },
         });
 
+        // Fade out content first
         tl.to(sidebarContentRef.current, {
-          x: "-100%",
-          duration: 0.5,
-          ease: "power3.in",
-        })
-          .to(overlayRef.current, { opacity: 0, duration: 0.3 }, "-=0.3")
-          .to(expandedSidebarRef.current, { autoAlpha: 0, duration: 0.1 });
+          opacity: 0,
+          duration: 0.3,
+        });
+
+        // Reverse animate fan panels
+        const fanPanels = expandedSidebarRef.current.querySelectorAll(
+          '[class*="fan-panel"]'
+        );
+
+        if (fanPanels && fanPanels.length > 0) {
+          const reversePanels = Array.from(fanPanels).reverse();
+          reversePanels.forEach((panel, index) => {
+            tl.to(
+              panel,
+              { width: 0, duration: 0.3, ease: "power3.in" },
+              index * 0.05
+            );
+          });
+        }
+
+        // Fade out overlay
+        tl.to(overlayRef.current, { opacity: 0, duration: 0.3 }, "-=0.2").to(
+          expandedSidebarRef.current,
+          { autoAlpha: 0, duration: 0.1 }
+        );
       }
     }
   }, [isExpandedSidebar]);
@@ -85,7 +126,7 @@ const Navigation: React.FC<NavigationProps> = ({
         navItems={navItems}
         settings={settings}
         setIsExpandedSidebar={setIsExpandedSidebar}
-        expandedSidebarRef={expandedSidebarRef}
+        isExpandedSidebar={isExpandedSidebar}
       />
       <Navbar
         settings={settings}
@@ -103,6 +144,7 @@ const Navigation: React.FC<NavigationProps> = ({
         expandedSidebarRef={expandedSidebarRef}
         sidebarContentRef={sidebarContentRef}
         overlayRef={overlayRef}
+        currentSection={currentSection}
       />
     </>
   );

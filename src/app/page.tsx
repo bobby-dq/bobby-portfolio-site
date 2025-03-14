@@ -6,6 +6,7 @@ import Projects from "./projects/projects";
 import Experiences from "./experiences/experiences";
 import Skills from "./skills/skills";
 import Contact from "./contact/contact";
+import ScrollSection from "./shared/scroll-section";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { settings } = await getPortfolioData(["settings"]);
@@ -15,6 +16,12 @@ export async function generateMetadata(): Promise<Metadata> {
     description:
       settings?.data?.site_description ||
       "Full-stack developer crafting digital experiences",
+    icons: {
+      icon: [
+        { url: "/icon-bobby.svg", type: "image/svg+xml" },
+        { url: "/favicon.ico" },
+      ],
+    },
   };
 }
 
@@ -24,25 +31,23 @@ export default async function Home() {
 
   return (
     <>
-      {settings && homepage && (
-        <Hero homepage={homepage} settings={settings}></Hero>
-      )}
+      {settings && homepage && <Hero homepage={homepage} settings={settings} />}
+
       {settings && experiences && (
-        <Experiences
-          experiences={experiences}
-          settings={settings}
-        ></Experiences>
+        <Experiences experiences={experiences} settings={settings} />
       )}
+
       {settings && education && (
-        <Education education={education} settings={settings}></Education>
+        <Education education={education} settings={settings} />
       )}
+
       {settings && projects && (
-        <Projects projects={projects} settings={settings}></Projects>
+        <Projects projects={projects} settings={settings} />
       )}
-      {settings && skills && (
-        <Skills skills={skills} settings={settings}></Skills>
-      )}
-      {settings && <Contact settings={settings}></Contact>}
+
+      {settings && skills && <Skills skills={skills} settings={settings} />}
+
+      {settings && <Contact settings={settings} />}
     </>
   );
 }

@@ -6,6 +6,8 @@ import { useSectionTracking } from "@/hooks/useSectionTracking";
 import { getNavigationItems } from "@/services/navigation/navigation.service";
 import Navigation from "../navigation/navigation";
 import { useSettings } from "@/hooks/useSettings";
+import AppWrapper from "../shared/app-wrapper";
+import MouseTrail from "../shared/mouse-trail";
 
 export default function ClientLayout({
   children,
@@ -19,20 +21,28 @@ export default function ClientLayout({
     useSectionTracking(navItems);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {settings && (
-        <Navigation
-          settings={settings}
-          currentSection={currentSection}
-          isScrolled={isScrolled}
-          isExpandedSidebar={isExpandedSidebar}
-          setCurrentSection={setCurrentSection}
-          setIsExpandedSidebar={setIsExpandedSidebar}
-          navItems={navItems}
+    <AppWrapper>
+      <div className="min-h-screen flex flex-col">
+        <MouseTrail
+          particleCount={1000}
+          particleSize={20}
+          particleLifespan={600}
+          particleOpacity={0.66}
         />
-      )}
-      <main className="flex-grow pt-24 ml-12">{children}</main>
-      {settings && <Footer settings={settings} />}
-    </div>
+        {settings && (
+          <Navigation
+            settings={settings}
+            currentSection={currentSection}
+            isScrolled={isScrolled}
+            isExpandedSidebar={isExpandedSidebar}
+            setCurrentSection={setCurrentSection}
+            setIsExpandedSidebar={setIsExpandedSidebar}
+            navItems={navItems}
+          />
+        )}
+        <main className="flex-grow pt-24 ml-12">{children}</main>
+        {settings && <Footer settings={settings} />}
+      </div>
+    </AppWrapper>
   );
 }

@@ -7,5 +7,5 @@ export interface SidebarProps {
   currentSection: string;
   navItems: NavItem[];
   setIsExpandedSidebar: (isExpanded: boolean) => void;
-  expandedSidebarRef: { current: HTMLDivElement | null };
+  isExpandedSidebar: boolean;
 }

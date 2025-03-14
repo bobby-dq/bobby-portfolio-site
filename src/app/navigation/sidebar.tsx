@@ -1,19 +1,23 @@
 import React from "react";
 import { SidebarProps } from "./sidebar.props";
-import { PanelLeftOpen } from "lucide-react";
+import { PanelLeftOpen, X } from "lucide-react";
 
 const Sidebar: React.FC<SidebarProps> = ({
   currentSection,
   navItems,
   setIsExpandedSidebar,
+  isExpandedSidebar,
 }) => {
   const handleOpenSidebar = () => {
     if (setIsExpandedSidebar) {
-      setIsExpandedSidebar(true);
+      setIsExpandedSidebar(!isExpandedSidebar);
     }
   };
   return (
-    <div className="fixed left-0 top-0 h-full w-12 bg-base z-50 bg-opacity-100 backdrop-blur-sm border-r border-primary">
+    <div
+      onClick={handleOpenSidebar}
+      className="fixed left-0 top-0 h-full w-12 bg-base z-50 bg-opacity-100 backdrop-blur-sm border-r border-primary cursor-pointer hover:invert transition-all duration-300"
+    >
       <div className="w-full flex flex-col items-center h-full">
         <div className="py-4">
           <button
@@ -21,7 +25,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             className="text-primary hover:text-ink transition-colors p-2"
             aria-label="Open menu"
           >
-            <PanelLeftOpen size={20} />
+            {isExpandedSidebar ? <X size={20} /> : <PanelLeftOpen size={20} />}
           </button>
         </div>
         <div className="flex-grow flex items-center">

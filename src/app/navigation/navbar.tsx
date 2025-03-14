@@ -32,9 +32,7 @@ const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-30 backdrop-blur-sm ${
-        isScrolled ? "bg-base bg-opacity-5" : "bg-transparent"
-      } transition-all duration-300`}
+      className={`fixed top-0 left-0 right-0 z-30 bg-transparent transition-all duration-300`}
     >
       <div className="container mx-auto px-4 py-4">
         <div className="flex flex-row justify-between items-center">

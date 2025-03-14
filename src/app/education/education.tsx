@@ -3,61 +3,57 @@ import { EducationProps } from "./education.props";
 import AnimatedSection from "@/app/shared/animated-section";
 
 const Education: React.FC<EducationProps> = ({ education }) => {
+  const sortedEducation = education?.sort(
+    (a, b) => a.data.order - b.data.order
+  );
+
   return (
-    <section id="education" className="portfolio-section">
+    <section id="education" className="portfolio-section py-16">
       <div className="container mx-auto px-4">
-        <AnimatedSection>
-          <h2 className="font-primary text-5xl md:text-6xl text-ink mb-16 lowercase">
+        <AnimatedSection animation="fadeUp">
+          <h2 className="font-primary text-5xl md:text-6xl text-primary mb-16 lowercase">
             Education
           </h2>
         </AnimatedSection>
 
-        <div className="space-y-12">
-          {education?.map((edu, index) => (
-            <AnimatedSection key={edu.id} delay={100 * (index + 1)}>
-              <div className="border border-ink-800 p-6 hover:border-ink-700 transition-colors">
-                <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                  <h3 className="text-xl text-ink">{edu.data.degree}</h3>
-                  <span className="text-ink-500 text-sm">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {sortedEducation?.map((edu, index) => (
+            <AnimatedSection
+              key={edu.id}
+              animation="fadeUp"
+              delay={100 * (index + 1)}
+            >
+              <div className="p-6 hover:border-primary transition-all duration-300 hover:shadow-lg group h-full hover:bg-base">
+                <div className="flex flex-col mb-2">
+                  <span className="text-ink-500 text-sm mb-2 tracking-wider uppercase">
                     {edu.data.duration}
                   </span>
-                </div>
-                <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                  <h4 className="text-ink-400 mb-4">{edu.data.institution}</h4>
-                  <p className="text-ink-300 mb-2">{edu.data.gpa}</p>
-                </div>
-
-                {/* {edu.data.key_courses && edu.data.key_courses.length > 0 && (
-                  <div className="mt-4 pt-4 border-t border-ink-800">
-                    <h5 className="text-ink mb-3">Key Courses</h5>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {edu.data.key_courses.map((course, i) => (
-                        <div
-                          key={i}
-                          className="p-3 border border-ink-800 group hover:border-ink-700 transition-colors"
-                        >
-                          <h6 className="text-ink text-sm mb-1">
-                            {course.course_name}
-                          </h6>
-                          {course.course_description && (
-                            <p className="text-ink-400 text-xs">
-                              {course.course_description}
-                            </p>
-                          )}
-                        </div>
-                      ))}
+                  <h3 className="text-xl font-bold text-primary group-hover:text-primary-dark transition-colors">
+                    {edu.data.degree}
+                  </h3>
+                  <h4 className="text-lg text-ink-400 mt-2">
+                    {edu.data.institution}
+                  </h4>
+                  {edu.data.gpa && (
+                    <div className="mt-3 inline-flex items-center border border-ink-700 px-3 py-1 text-ink-300 self-start">
+                      <span className="mr-1">GPA:</span>
+                      <span className="font-bold text-primary">
+                        {edu.data.gpa}
+                      </span>
                     </div>
-                  </div>
-                )} */}
+                  )}
+                </div>
               </div>
             </AnimatedSection>
           ))}
 
           {/* Fallback if no education data is found */}
           {(!education || education.length === 0) && (
-            <p className="text-ink-400 text-center py-8">
-              Education information not available.
-            </p>
+            <div className="col-span-full">
+              <p className="text-ink-400 text-center py-8">
+                Education information not available.
+              </p>
+            </div>
           )}
         </div>
       </div>

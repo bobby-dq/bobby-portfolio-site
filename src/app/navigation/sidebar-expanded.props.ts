@@ -11,4 +11,5 @@ export interface ExpandedSidebarProps {
   expandedSidebarRef: { current: HTMLDivElement | null };
   sidebarContentRef: { current: HTMLDivElement | null };
   overlayRef: { current: HTMLDivElement | null };
+  currentSection: string;
 }

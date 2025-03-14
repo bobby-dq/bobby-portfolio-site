@@ -36,12 +36,18 @@ export interface ProjectData {
   [key: string]: any;
 }
 
+export interface TechItem {
+  name: string;
+  order1: number;
+}
+
 export interface ExperienceData {
   position: string;
   company: string;
   date_range: string;
   short_description: string;
   descriptions: JobDescriptionItem[];
+  technologies: TechItem[];
   order: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
