@@ -30,7 +30,10 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience }) => {
   }, [expanded]);
 
   return (
-    <div className="timeline-item mb-10 p-5 hover:border-primary transition-all duration-300 hover:shadow-lg hover:bg-base group h-full">
+    <div
+      onClick={() => setExpanded(!expanded)}
+      className=" w-full timeline-item mb-10 p-5 transition-all duration-300 hover:bg-primary-100 hover:bg-opacity-66 group h-full cursor-pointer"
+    >
       <div className="flex flex-col justify-between mb-2">
         <span className="text-ink-500 text-sm">
           {experience.data.date_range}
@@ -84,7 +87,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience }) => {
           <ul className="list-disc pl-5 space-y-2">
             {experience.data.descriptions.map(
               (d: JobDescriptionItem, i: number) => (
-                <li className="text-ink-500" key={i}>
+                <li className="text-ink-600 font-semibold" key={i}>
                   {d.item}
                 </li>
               )

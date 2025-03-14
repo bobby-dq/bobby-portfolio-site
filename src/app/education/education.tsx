@@ -23,7 +23,7 @@ const Education: React.FC<EducationProps> = ({ education }) => {
               animation="fadeUp"
               delay={100 * (index + 1)}
             >
-              <div className="p-6 hover:border-primary transition-all duration-300 hover:shadow-lg group h-full hover:bg-base">
+              <div className="p-6 transition-all duration-300 hover:border hover:border-primary group h-full hover:bg-base">
                 <div className="flex flex-col mb-2">
                   <span className="text-ink-500 text-sm mb-2 tracking-wider uppercase">
                     {edu.data.duration}

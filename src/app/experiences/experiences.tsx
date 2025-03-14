@@ -13,7 +13,7 @@ const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
           </h2>
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 gap-12">
           <AnimatedSection
             className="md:col-span-2"
             animation="slideRight"
