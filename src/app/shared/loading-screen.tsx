@@ -15,12 +15,12 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
   useEffect(() => {
     const fetchSvg = async () => {
       try {
-        const response = await fetch("/icon-bobby.svg");
+        const response = await fetch("/api/icon/bq-min-logo");
         const svgText = await response.text();
 
         const modifiedSvg = svgText.replace(
           "<svg",
-          '<svg width="100%" height="100%" preserveAspectRatio="xMidYMid meet"'
+          '<svg style="visibility:hidden;" width="100%" height="100%" preserveAspectRatio="xMidYMid meet"'
         );
 
         setSvgContent(modifiedSvg);
@@ -35,6 +35,8 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
 
   useEffect(() => {
     if (!svgContent || !svgContainerRef.current) return;
+    const svgElement = svgContainerRef.current.querySelector("svg");
+    if (!svgElement) return;
 
     const timer = setTimeout(() => {
       const paths = svgContainerRef.current?.querySelectorAll(
@@ -62,14 +64,15 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
           });
         });
 
+        gsap.set(svgElement, { visibility: "visible" });
         const tl = gsap.timeline({
           onComplete,
         });
 
         tl.to(paths, {
           strokeDashoffset: 0,
-          duration: 1,
-          stagger: 0.1,
+          duration: 0.66,
+          stagger: 0.11,
           ease: "power2.inOut",
         });
 

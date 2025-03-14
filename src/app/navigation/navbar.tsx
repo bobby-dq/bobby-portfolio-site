@@ -40,12 +40,11 @@ const Navbar: React.FC<NavbarProps> = ({
             {settings?.data?.logo?.url ? (
               <div className="w-auto h-8 md:h-10">
                 <Image
-                  src={settings.data.logo.url}
+                  src="/api/icon/bobby-logo"
                   alt={settings.data.site_title || "Bobby Quilacio"}
                   width={100}
                   height={40}
-                  className="h-full w-auto text-primary [&>path]:fill-primary"
-                  style={{ filter: "invert(var(--tw-text-opacity))" }}
+                  className="h-full w-auto text-primary"
                 />
               </div>
             ) : (
