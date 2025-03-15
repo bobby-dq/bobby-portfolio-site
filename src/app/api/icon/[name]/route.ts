@@ -12,26 +12,51 @@ export async function GET(
 ) {
   try {
     const { name } = await params;
-
+    const { searchParams } = new URL(request.url);
+    const colorType = searchParams.get("color") || "primary";
     const fullConfig = resolveConfig(config);
-    const primary = fullConfig.theme?.colors?.primary;
-    const primaryColor =
-      typeof primary === "object" && primary !== null
-        ? primary.DEFAULT
-        : typeof primary === "string"
-        ? primary
-        : "#000000";
+    let colorValue;
+
+    switch (colorType) {
+      case "ink":
+        const ink = fullConfig.theme?.colors?.ink;
+        colorValue =
+          typeof ink === "object" && ink !== null
+            ? ink.DEFAULT
+            : typeof ink === "string"
+            ? ink
+            : "#000000";
+        break;
+
+      case "base":
+        const base = fullConfig.theme?.colors?.base;
+        colorValue =
+          typeof base === "object" && base !== null
+            ? base.DEFAULT
+            : typeof base === "string"
+            ? base
+            : "#FFFFFF";
+        break;
+
+      case "primary":
+      default:
+        const primary = fullConfig.theme?.colors?.primary;
+        colorValue =
+          typeof primary === "object" && primary !== null
+            ? primary.DEFAULT
+            : typeof primary === "string"
+            ? primary
+            : "#000000";
+        break;
+    }
 
     const svgPath = path.join(process.cwd(), `src/media/${name}.svg`);
     let svgContent = fs.readFileSync(svgPath, "utf8");
 
     if (svgContent.includes("fill=")) {
-      svgContent = svgContent.replace(
-        /fill="[^"]*"/g,
-        `fill="${primaryColor}"`
-      );
+      svgContent = svgContent.replace(/fill="[^"]*"/g, `fill="${colorValue}"`);
     } else {
-      svgContent = svgContent.replace("<svg", `<svg fill="${primaryColor}"`);
+      svgContent = svgContent.replace("<svg", `<svg fill="${colorValue}"`);
     }
 
     return new NextResponse(svgContent, {

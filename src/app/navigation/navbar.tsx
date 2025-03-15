@@ -40,7 +40,7 @@ const Navbar: React.FC<NavbarProps> = ({
             {settings?.data?.logo?.url ? (
               <div className="w-auto h-8 md:h-10">
                 <Image
-                  src="/api/icon/bobby-logo"
+                  src="/api/icon/bobby-logo?color=ink"
                   alt={settings.data.site_title || "Bobby Quilacio"}
                   width={100}
                   height={40}
