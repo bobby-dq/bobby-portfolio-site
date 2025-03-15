@@ -96,7 +96,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
           ease: "power1.inOut",
         });
 
-        tl.to({}, { duration: 0.8 });
+        tl.to({}, { duration: 0.33 });
 
         tl.to(containerRef.current, {
           opacity: 0,
