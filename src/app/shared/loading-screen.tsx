@@ -119,7 +119,8 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
     >
       <div
         ref={svgContainerRef}
-        className="w-64 h-64 md:w-96 md:h-96 lg:w-128 lg:h-128 text-primary flex items-center justify-center"
+        // className="w-32 h-32 md:w-32 md:h-32 lg:w-32 lg:h-32 text-primary flex items-center justify-center"
+        className="w-48 h-48 text-primary flex items-center justify-center"
       >
         {svgContent ? (
           <div

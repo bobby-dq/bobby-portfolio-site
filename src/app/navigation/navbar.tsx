@@ -44,7 +44,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   alt={settings.data.site_title || "Bobby Quilacio"}
                   width={100}
                   height={40}
-                  className="h-full w-auto text-primary"
+                  className="h-full w-auto"
                 />
               </div>
             ) : (
