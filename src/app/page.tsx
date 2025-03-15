@@ -6,20 +6,21 @@ import Projects from "./projects/projects";
 import Experiences from "./experiences/experiences";
 import Skills from "./skills/skills";
 import Contact from "./contact/contact";
-import ScrollSection from "./shared/scroll-section";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { settings } = await getPortfolioData(["settings"]);
 
   return {
-    title: settings?.data?.site_title || "Bobby Quilacio | Portfolio",
+    title:
+      `${settings?.data?.site_title} | Software Engineer` ||
+      "Bobby Quilacio | Software Engineer",
     description:
       settings?.data?.site_description ||
-      "Full-stack developer crafting digital experiences",
+      "A driven software engineer with expertise in full-stack development ",
     icons: {
       icon: [
-        { url: "/icon-bobby.svg", type: "image/svg+xml" },
-        { url: "/favicon.ico" },
+        { url: "/api/icon/bq-min-logo", type: "image/svg+xml" },
+        // { url: "/favicon.ico" },
       ],
     },
   };

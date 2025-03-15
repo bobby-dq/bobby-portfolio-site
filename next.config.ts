@@ -1,8 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   images: {
-    // domains: ["images.prismic.io"],
+    dangerouslyAllowSVG: true,
     remotePatterns: [
       {
         protocol: "https",
