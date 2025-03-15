@@ -15,7 +15,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
   useEffect(() => {
     const fetchSvg = async () => {
       try {
-        const response = await fetch("/bq-min-logo.svg");
+        const response = await fetch("/api/icon/bq-min-logo");
         const svgText = await response.text();
 
         const modifiedSvg = svgText.replace(
@@ -63,6 +63,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
             fillOpacity: 0,
           });
         });
+
         gsap.set(svgElement, { visibility: "visible" });
         const tl = gsap.timeline({
           onComplete,
@@ -71,7 +72,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
         tl.to(paths, {
           strokeDashoffset: 0,
           duration: 0.66,
-          stagger: 0.03,
+          stagger: 0.11,
           ease: "power2.inOut",
         });
 
@@ -118,7 +119,8 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
     >
       <div
         ref={svgContainerRef}
-        className="w-64 h-64 md:w-96 md:h-96 lg:w-128 lg:h-128 text-primary flex items-center justify-center"
+        // className="w-32 h-32 md:w-32 md:h-32 lg:w-32 lg:h-32 text-primary flex items-center justify-center"
+        className="w-48 h-48 text-primary flex items-center justify-center"
       >
         {svgContent ? (
           <div
