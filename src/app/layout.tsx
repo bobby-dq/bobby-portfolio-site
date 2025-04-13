@@ -4,6 +4,7 @@ import { Pirata_One, Forum } from "next/font/google";
 import { SettingsProvider } from "@/providers/settings.provider";
 import ClientLayout from "./layouts/client-layout";
 import { GSAPProvider } from "@/providers/gsap.providers";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const primaryFont = Pirata_One({
   subsets: ["latin"],
@@ -29,12 +30,14 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const { settings } = await getPortfolioData(["settings"]);
+  const gaId = process.env.NEXT_PUBLIC_GTAG ?? "";
   return (
     <html
       lang="en"
       className={`${primaryFont.variable} ${secondaryFont.variable} scroll-smooth`}
     >
       <body className="bg-base text-ink-300 font-secondary">
+        <GoogleAnalytics gaId={gaId} />
         {settings && (
           <SettingsProvider settings={settings}>
             <GSAPProvider>
