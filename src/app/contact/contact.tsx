@@ -1,9 +1,12 @@
+"use client";
+
 import React from "react";
 import { ContactProps } from "./contact.props";
 import AnimatedSection from "@/app/shared/animated-section";
 import ContactButton from "@/app/shared/contact-button";
 import { isFilled } from "@prismicio/client";
 import { Github, Linkedin, Mail } from "lucide-react";
+import { sendGAEvent } from "@next/third-parties/google";
 
 const Contact: React.FC<ContactProps> = ({ settings }) => {
   const githubLink = settings?.data?.social_links?.find(
@@ -59,6 +62,9 @@ const Contact: React.FC<ContactProps> = ({ settings }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="gothic-button w-full md:w-auto text-center text-xl py-4 px-8"
+                onClick={() =>
+                  sendGAEvent("event", "contact_click", { method: "resume" })
+                }
               >
                 Download Resume
               </a>
@@ -71,6 +77,9 @@ const Contact: React.FC<ContactProps> = ({ settings }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-ink hover:text-primary transition-colors p-2"
+                onClick={() =>
+                  sendGAEvent("event", "contact_click", { method: "github" })
+                }
               >
                 <Github size={24} />
               </a>
@@ -79,12 +88,18 @@ const Contact: React.FC<ContactProps> = ({ settings }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-ink hover:text-primary transition-colors p-2"
+                onClick={() =>
+                  sendGAEvent("event", "contact_click", { method: "linkedin" })
+                }
               >
                 <Linkedin size={24} />
               </a>
               <a
                 href={`mailto:${emailUrl}`}
                 className="text-ink hover:text-primary transition-colors p-2"
+                onClick={() =>
+                  sendGAEvent("event", "contact_click", { method: "email" })
+                }
               >
                 <Mail size={24} />
               </a>

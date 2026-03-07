@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { sendGAEvent } from "@next/third-parties/google";
 
 export function useSectionTracking(navItems: { id: string }[]) {
   const [currentSection, setCurrentSection] = useState(
@@ -30,6 +31,14 @@ export function useSectionTracking(navItems: { id: string }[]) {
     window.addEventListener("scroll", handleScroll);
     handleScroll();
   }, [navItems]);
+
+  const prevSection = useRef<string | null>(null);
+  useEffect(() => {
+    if (prevSection.current !== currentSection) {
+      sendGAEvent("event", "section_view", { section_id: currentSection });
+      prevSection.current = currentSection;
+    }
+  }, [currentSection]);
 
   return { currentSection, setCurrentSection, isScrolled };
 }

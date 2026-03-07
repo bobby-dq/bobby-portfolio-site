@@ -1,8 +1,11 @@
+"use client";
+
 import React from "react";
 import { X, Github, Linkedin, Mail } from "lucide-react";
 import gsap from "gsap";
 import { ExpandedSidebarProps } from "./sidebar-expanded.props";
 import { isFilled } from "@prismicio/client";
+import { sendGAEvent } from "@next/third-parties/google";
 
 const ExpandedSidebar: React.FC<ExpandedSidebarProps> = ({
   navItems,
@@ -144,6 +147,7 @@ const ExpandedSidebar: React.FC<ExpandedSidebarProps> = ({
                 item.id === currentSection ? "bg-ink/10" : ""
               }`}
               onClick={() => {
+                sendGAEvent("event", "nav_click", { section_id: item.id });
                 setCurrentSection(item.id);
                 setIsExpandedSidebar(false);
                 gsap.to(window, {
@@ -185,6 +189,9 @@ const ExpandedSidebar: React.FC<ExpandedSidebarProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               className="text-base hover:text-ink transition-colors p-2"
+              onClick={() =>
+                sendGAEvent("event", "contact_click", { method: "github" })
+              }
             >
               <Github size={24} />
             </a>
@@ -193,12 +200,18 @@ const ExpandedSidebar: React.FC<ExpandedSidebarProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               className="text-base hover:text-ink transition-colors p-2"
+              onClick={() =>
+                sendGAEvent("event", "contact_click", { method: "linkedin" })
+              }
             >
               <Linkedin size={24} />
             </a>
             <a
               href={`mailto:${emailUrl}`}
               className="text-base hover:text-ink transition-colors p-2"
+              onClick={() =>
+                sendGAEvent("event", "contact_click", { method: "email" })
+              }
             >
               <Mail size={24} />
             </a>
