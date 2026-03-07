@@ -1,6 +1,7 @@
 "use client";
 
 import { MouseEvent } from "react";
+import { sendGAEvent } from "@next/third-parties/google";
 
 interface ContactButtonProps {
   email?: string;
@@ -15,6 +16,7 @@ export default function ContactButton({
 }: ContactButtonProps) {
   const handleContactClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    sendGAEvent("event", "contact_click", { method: "email" });
     window.location.href = `mailto:${email}`;
   };
 

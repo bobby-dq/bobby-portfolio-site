@@ -2,7 +2,8 @@
 
 import { useRef, useState, useEffect } from "react";
 import { PrismicRichText, PrismicText } from "@prismicio/react";
-import { isFilled } from "@prismicio/client";
+import { isFilled, asText } from "@prismicio/client";
+import { sendGAEvent } from "@next/third-parties/google";
 import Image from "next/image";
 import gsap from "gsap";
 import { ProjectItemProps } from "./project-item.props";
@@ -93,7 +94,14 @@ export default function ProjectItem({ project, index }: ProjectItemProps) {
     <div className="work-item" ref={projectRef}>
       <div
         className="cursor-pointer group"
-        onClick={() => setIsExpanded(!isExpanded)}
+        onClick={() => {
+          const action = isExpanded ? "collapse" : "expand";
+          sendGAEvent("event", "project_expand", {
+            project_title: asText(project.data.title),
+            action,
+          });
+          setIsExpanded(!isExpanded);
+        }}
       >
         <div className="flex items-center gap-4 mb-4">
           <span className="text-4xl font-primary text-primary-500">
@@ -178,6 +186,12 @@ export default function ProjectItem({ project, index }: ProjectItemProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="gothic-button text-sm"
+                onClick={() =>
+                  sendGAEvent("event", "project_link_click", {
+                    project_title: asText(project.data.title),
+                    link_type: "live",
+                  })
+                }
               >
                 Live Project
               </a>
@@ -189,6 +203,12 @@ export default function ProjectItem({ project, index }: ProjectItemProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="gothic-button text-sm"
+                onClick={() =>
+                  sendGAEvent("event", "project_link_click", {
+                    project_title: asText(project.data.title),
+                    link_type: "github",
+                  })
+                }
               >
                 View Code
               </a>
