@@ -71,8 +71,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
 
         tl.to(paths, {
           strokeDashoffset: 0,
-          duration: 0.66,
-          stagger: 0.11,
+          duration: 0.33,
           ease: "power2.inOut",
         });
 
@@ -81,8 +80,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
           {
             fill: "currentColor",
             fillOpacity: 0.2,
-            duration: 0.5,
-            stagger: 0.05,
+            duration: 0.33,
             ease: "power1.in",
           },
           "-=0.3"
@@ -91,17 +89,16 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
         tl.to(paths, {
           fillOpacity: 1,
           strokeWidth: 0,
-          duration: 1,
-          stagger: 0.05,
+          duration: 0.33,
           ease: "power1.inOut",
         });
 
-        tl.to({}, { duration: 0.33 });
+        // tl.to({}, { duration: 0.33 });
 
         tl.to(containerRef.current, {
+          scale: 3,
           opacity: 0,
-          y: -20,
-          duration: 0.5,
+          duration: 0.66,
           ease: "power2.in",
         });
       } else {
