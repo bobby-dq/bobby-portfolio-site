@@ -92,6 +92,7 @@ export default function ProjectItem({ project, index }: ProjectItemProps) {
 
   return (
     <div className="work-item" ref={projectRef}>
+      {/* Clickable: title row + toggle only */}
       <div
         className="cursor-pointer group"
         onClick={() => {
@@ -104,10 +105,10 @@ export default function ProjectItem({ project, index }: ProjectItemProps) {
         }}
       >
         <div className="flex items-center gap-4 mb-4">
-          <span className="text-4xl font-primary text-primary-500">
+          <span className="text-lg font-primary text-primary-500">
             {String(index + 1).padStart(2, "0")}
           </span>
-          <h3 className="text-2xl md:text-3xl text-ink group-hover:text-ink-300 transition-colors">
+          <h3 className="text-lg font-bold text-ink group-hover:text-ink-300 transition-colors">
             <PrismicText field={project.data.title} />
           </h3>
           <div
@@ -119,39 +120,39 @@ export default function ProjectItem({ project, index }: ProjectItemProps) {
             +
           </div>
         </div>
-
-        <p className="text-ink-400 mb-4 ml-12">
-          {project.data.short_description}
-        </p>
       </div>
 
+      {/* Always visible: description + tech stack */}
+      <p className="text-sm text-ink mb-2 ml-12">
+        {project.data.short_description}
+      </p>
+
+      {project.data.technologies && project.data.technologies.length > 0 && (
+        <div className="skill-prose flex flex-wrap items-baseline ml-12 mb-4">
+          {project.data.technologies.map((tech: TechnologyItem, i: number, arr) => (
+            <span key={i} className="flex items-baseline">
+              <span className="skill-name text-xs font-light text-ink cursor-default">
+                {tech.item}
+              </span>
+              {i < arr.length - 1 && (
+                <span className="skill-sep text-ink-200 mx-1.5 text-xs">—</span>
+              )}
+            </span>
+          ))}
+        </div>
+      )}
+
+      {/* Accordion: full description + images */}
       <div
         ref={contentRef}
         className="overflow-hidden h-0 ml-12"
         style={{ opacity: isExpanded ? 1 : 0 }}
       >
         <div className="space-y-6 border-l-2 border-ink-800 pl-6">
-          <div className="prose prose-invert max-w-none content-item">
+          <div className="prose prose-sm prose-invert max-w-none content-item">
             <PrismicRichText field={project.data.full_description} />
           </div>
 
-          {project.data.technologies &&
-            project.data.technologies.length > 0 && (
-              <div className="flex flex-wrap gap-2 content-item">
-                {project.data.technologies.map(
-                  (tech: TechnologyItem, i: number) => (
-                    <span
-                      key={i}
-                      className="px-3 py-1 border border-ink-800 text-sm text-ink-400"
-                    >
-                      {tech.item}
-                    </span>
-                  )
-                )}
-              </div>
-            )}
-
-          {/* Moved images to appear after technologies */}
           {project.data.images && project.data.images.length > 0 && (
             <div className="flex flex-col gap-4 content-item opacity-100 w-full">
               {project.data.images.map((imageObj: ProjectImage, i: number) => (

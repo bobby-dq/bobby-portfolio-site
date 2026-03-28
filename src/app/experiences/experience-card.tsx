@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { JobDescriptionItem } from "@/services/prismic/prismic.dto";
-import TechnologyChip from "../shared/technology-chip";
+import TechnologyList from "../shared/technology-list";
 import gsap from "gsap";
 import { ExperienceCardProps } from "./experience-card.props";
 
@@ -47,16 +47,13 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience }) => {
       </div>
 
       {/* Short description */}
-      <p className="text-ink mb-4">{experience.data.short_description}</p>
+      <p className="text-sm text-ink mb-4">{experience.data.short_description}</p>
 
-      {/* Technology chips */}
-      <div className="flex flex-wrap gap-2 mb-4">
-        {experience.data.technologies
-          .sort((a, b) => a.order1 - b.order1)
-          .map((tech, i) => (
-            <TechnologyChip key={i} name={tech.name} index={i} />
-          ))}
-      </div>
+      {/* Technology list */}
+      <TechnologyList
+        technologies={experience.data.technologies}
+        className="mb-4"
+      />
 
       {/* Expand/collapse button */}
       <button
@@ -84,7 +81,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience }) => {
       {/* Expanded descriptions */}
       <div ref={descriptionRef} className="overflow-hidden h-0 opacity-0">
         <div className="mt-4 pt-4 border-t border-ink-100">
-          <ul className="list-disc pl-5 space-y-2">
+          <ul className="gothic-bullets space-y-2">
             {experience.data.descriptions.map(
               (d: JobDescriptionItem, i: number) => (
                 <li className="text-ink-600 font-semibold" key={i}>

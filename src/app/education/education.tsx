@@ -23,31 +23,37 @@ const Education: React.FC<EducationProps> = ({ education }) => {
               animation="fadeUp"
               delay={100 * (index + 1)}
             >
-              <div className="p-6 transition-all duration-300 hover:border hover:border-primary group h-full hover:bg-base">
-                <div className="flex flex-col mb-2">
-                  <span className="text-ink-500 text-sm mb-2 tracking-wider uppercase">
-                    {edu.data.duration}
+              <div className="edu-timeline-item">
+                <span className="block text-xs uppercase tracking-wider text-ink-500 mb-1">
+                  {edu.data.duration}
+                </span>
+                <h3 className="font-primary text-lg text-ink mb-1">
+                  {edu.data.degree}
+                </h3>
+                <p className="text-sm font-light text-ink-400 mb-2">
+                  {edu.data.institution}
+                </p>
+                {edu.data.gpa && (
+                  <span className="text-xs text-primary border-b border-primary pb-px">
+                    GPA {edu.data.gpa}
                   </span>
-                  <h3 className="text-xl font-bold text-primary group-hover:text-primary-dark transition-colors">
-                    {edu.data.degree}
-                  </h3>
-                  <h4 className="text-lg text-ink-400 mt-2">
-                    {edu.data.institution}
-                  </h4>
-                  {edu.data.gpa && (
-                    <div className="mt-3 inline-flex items-center border border-ink-700 px-3 py-1 text-ink-300 self-start">
-                      <span className="mr-1">GPA:</span>
-                      <span className="font-bold text-primary">
-                        {edu.data.gpa}
-                      </span>
-                    </div>
-                  )}
-                </div>
+                )}
+                {edu.data.key_courses && edu.data.key_courses.length > 0 && (
+                  <div className="mt-3">
+                    <span className="block text-[9px] uppercase tracking-widest text-ink-300 mb-1">
+                      Key Courses
+                    </span>
+                    <p className="text-xs font-light text-ink-400">
+                      {edu.data.key_courses
+                        .map((c) => c.course_name)
+                        .join(" — ")}
+                    </p>
+                  </div>
+                )}
               </div>
             </AnimatedSection>
           ))}
 
-          {/* Fallback if no education data is found */}
           {(!education || education.length === 0) && (
             <div className="col-span-full">
               <p className="text-ink-400 text-center py-8">

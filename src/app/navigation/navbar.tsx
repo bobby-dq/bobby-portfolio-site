@@ -62,7 +62,7 @@ const Navbar: React.FC<NavbarProps> = ({
                 <li key={item.id}>
                   <button
                     onClick={() => handleSectionClick(item.id)}
-                    className="hover:text-ink text-primary transition-colors text-lg lowercase"
+                    className="hover:text-ink text-primary transition-colors text-lg lowercase font-pirata"
                   >
                     {item.label}
                   </button>
