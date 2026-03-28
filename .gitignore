@@ -40,5 +40,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# worktrees
+.worktrees/
+
 # plans and notes
 .plans/
+
+# superpowers
+.superpowers/
+docs/superpowers/
