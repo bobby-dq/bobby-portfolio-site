@@ -13,25 +13,26 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
         </AnimatedSection>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
-          {/* Map through skill categories */}
-          {skills?.map((skillCategory, index) => (
+          {skills?.sort((a, b) => a.data.order - b.data.order).map((skillCategory, index) => (
             <AnimatedSection
               key={skillCategory.id}
-              className="space-y-6"
+              className="space-y-3"
               delay={100 * (index + 1)}
             >
-              <h3 className="text-xl text-primary mb-8 font-primary">
+              <h3 className="text-xl text-primary font-primary border-b border-ink-100 pb-2 mb-3">
                 {skillCategory.data.category}
               </h3>
-              <div className="flex flex-wrap gap-3">
+              <div className="skill-prose flex flex-wrap items-baseline">
                 {skillCategory.data.items
-                  ?.sort((a, b) => a.order - b.order) // Sort items by order
-                  .map((skill, i) => (
-                    <span
-                      key={i}
-                      className="px-4 py-2 border border-ink-800 text-ink-300 hover:text-ink hover:border-ink-700 transition-colors"
-                    >
-                      {skill.name}
+                  ?.sort((a, b) => a.order - b.order)
+                  .map((skill, i, arr) => (
+                    <span key={i} className="flex items-baseline">
+                      <span className="skill-name text-sm font-light text-ink cursor-default">
+                        {skill.name}
+                      </span>
+                      {i < arr.length - 1 && (
+                        <span className="skill-sep text-ink-200 mx-1.5 text-xs">—</span>
+                      )}
                     </span>
                   ))}
               </div>

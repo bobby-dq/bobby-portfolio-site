@@ -1,6 +1,6 @@
 import { getPortfolioData } from "@/services/prismic/prismic.service";
 import "./globals.css";
-import { Pirata_One, Forum } from "next/font/google";
+import { Pirata_One, Raleway } from "next/font/google";
 import { SettingsProvider } from "@/providers/settings.provider";
 import ClientLayout from "./layouts/client-layout";
 import { GSAPProvider } from "@/providers/gsap.providers";
@@ -12,9 +12,9 @@ const primaryFont = Pirata_One({
   variable: "--font-primary",
 });
 
-const secondaryFont = Forum({
+const secondaryFont = Raleway({
   subsets: ["latin"],
-  weight: ["400"],
+  weight: ["300", "400", "500"],
   variable: "--font-secondary",
 });
 

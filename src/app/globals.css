@@ -5,6 +5,12 @@
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-rgb: 255, 253, 244;
+  /* Theme color variables — keep in sync with getPalette() in tailwind.config.ts */
+  /* Update both when switching themes: matcha=#5D7052/93,112,82 | crimson=#F3191B/243,25,27 | ube=#8A56AC/138,86,172 */
+  --color-primary: #5D7052;
+  --color-primary-rgb: 93, 112, 82;
+  --color-ink: #000000;
+  --color-base: #FFFDF4;
 }
 
 * {
@@ -116,11 +122,94 @@ body::after {
 
 /* Gothic Button */
 .gothic-button {
-  @apply inline-block px-6 py-2 border border-primary-300 text-ink uppercase tracking-wider text-sm transition-colors duration-300;
+  font-family: var(--font-primary);
+  display: inline-block;
+  padding: 8px 24px;
+  background: linear-gradient(
+    to right,
+    var(--color-primary) 50%,
+    rgba(var(--color-primary-rgb), 0.08) 50%
+  );
+  background-size: 200% 100%;
+  background-position: right center;
+  color: var(--color-ink);
+  transition: background-position 0.2s ease, color 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .gothic-button:hover {
-  @apply bg-ink bg-opacity-5 border-primary;
+  background-position: left center;
+  color: var(--color-base);
+}
+
+/* Gothic Bullets — Pirata One numbered list */
+.gothic-bullets {
+  list-style: none;
+  padding-left: 0;
+  counter-reset: gothic-counter;
+}
+.gothic-bullets li {
+  position: relative;
+  padding-left: 28px;
+  counter-increment: gothic-counter;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+  @apply text-ink-600;
+}
+.gothic-bullets li::before {
+  content: counter(gothic-counter, decimal-leading-zero);
+  font-family: var(--font-primary);
+  font-size: 0.8125rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  @apply text-primary;
+}
+
+/* Education Timeline — scoped to avoid collision with .timeline-item in experiences */
+.edu-timeline-item {
+  border-left: 1px solid theme('colors.ink.DEFAULT');
+  padding-left: 20px;
+  position: relative;
+}
+.edu-timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 6px;
+  width: 7px;
+  height: 7px;
+  border: 1px solid theme('colors.ink.DEFAULT');
+  background: theme('colors.base.DEFAULT');
+}
+
+/* Tech prose fade-others — scoped to .tech-block parent */
+.tech-block:hover .tech-name {
+  opacity: 0.3;
+  transition: opacity 0.2s ease;
+}
+.tech-block .tech-name:hover {
+  opacity: 1 !important;
+}
+.tech-block:hover .tech-sep {
+  opacity: 0.2;
+  transition: opacity 0.2s ease;
+}
+
+/* Skills fade-others — scoped to .skill-prose parent */
+.skill-prose:hover .skill-name {
+  opacity: 0.3;
+  transition: opacity 0.2s ease;
+}
+.skill-prose .skill-name:hover {
+  opacity: 1 !important;
+}
+.skill-prose:hover .skill-sep {
+  opacity: 0.2;
+  transition: opacity 0.2s ease;
 }
 
 /* Timeline */
