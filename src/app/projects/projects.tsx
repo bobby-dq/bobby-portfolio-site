@@ -14,7 +14,7 @@ const Projects: React.FC<ProjectsProps> = ({ projects }) => {
         </AnimatedSection>
 
         <div className="space-y-16">
-          {projects?.map((project, index) => (
+          {projects?.sort((a,b) => a.data.order - b.data.order).map((project, index) => (
             <ProjectItem key={project.id} project={project} index={index} />
           ))}
 
