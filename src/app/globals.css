@@ -186,6 +186,16 @@ body::after {
   background: theme('colors.base.DEFAULT');
 }
 
+/* Tech stack prefix label */
+.tech-block .prefix {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-primary);
+  font-weight: 500;
+  margin-right: 0.5rem;
+}
+
 /* Tech prose fade-others — scoped to .tech-block parent */
 .tech-block:hover .tech-name {
   opacity: 0.3;

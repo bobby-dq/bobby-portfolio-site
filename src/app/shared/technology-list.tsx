@@ -20,24 +20,16 @@ const TechnologyList: React.FC<TechnologyListProps> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Group by category; items without a category fall into ""
-  const grouped = technologies
-    .sort((a, b) => a.order1 - b.order1)
-    .reduce<Record<string, TechItem[]>>((acc, tech) => {
-      const key = tech.category ?? "";
-      if (!acc[key]) acc[key] = [];
-      acc[key].push(tech);
-      return acc;
-    }, {});
-
-  const groups = Object.entries(grouped);
+  const items = [...technologies].sort((a, b) => a.order1 - b.order1);
 
   useEffect(() => {
     if (!containerRef.current) return;
-    const blocks = containerRef.current.querySelectorAll(".tech-block");
-    if (!blocks.length) return;
-    gsap.fromTo(
-      blocks,
+    const targets = containerRef.current.querySelectorAll(
+      ".tech-name, .tech-sep"
+    );
+    if (!targets.length) return;
+    const tween = gsap.fromTo(
+      targets,
       { opacity: 0, y: 10 },
       {
         opacity: 1,
@@ -47,32 +39,23 @@ const TechnologyList: React.FC<TechnologyListProps> = ({
         ease: "power2.out",
       }
     );
+    return () => {
+      tween.kill();
+    };
   }, []);
 
   return (
-    <div ref={containerRef} className={`space-y-2 ${className}`}>
-      {groups.map(([category, items]) => (
-        <div key={category} className="tech-block">
-          {category && (
-            <span className="block text-[9px] uppercase tracking-widest text-primary font-medium mb-0.5">
-              {category}
-            </span>
+    <div ref={containerRef} className={`tech-block ${className}`}>
+      <span className="prefix">Stack</span>
+      {items.map((tech, i) => (
+        <span key={tech.name}>
+          <span className="tech-name text-xs font-light text-ink cursor-default">
+            {tech.name}
+          </span>
+          {i < items.length - 1 && (
+            <span className="tech-sep text-ink-200 mx-1.5 text-[9px]">/</span>
           )}
-          <div className="flex flex-wrap items-baseline">
-            {items.map((tech, i) => (
-              <span key={i} className="flex items-baseline">
-                <span className="tech-name text-xs font-light text-ink cursor-default">
-                  {tech.name}
-                </span>
-                {i < items.length - 1 && (
-                  <span className="tech-sep text-ink-200 mx-1.5 text-[9px]">
-                    —
-                  </span>
-                )}
-              </span>
-            ))}
-          </div>
-        </div>
+        </span>
       ))}
     </div>
   );
