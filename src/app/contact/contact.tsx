@@ -56,7 +56,7 @@ const Contact: React.FC<ContactProps> = ({ settings }) => {
               className="w-full md:w-auto text-center text-xl py-4 px-8"
             />
 
-            {isFilled.link(settings?.data?.resume_link) && (
+            {/* {isFilled.link(settings?.data?.resume_link) && (
               <a
                 href={settings.data.resume_link.url}
                 target="_blank"
@@ -68,7 +68,7 @@ const Contact: React.FC<ContactProps> = ({ settings }) => {
               >
                 Download Resume
               </a>
-            )}
+            )} */}
 
             {/* Social Media Icons */}
             <div className="mt-8 flex space-x-6">
